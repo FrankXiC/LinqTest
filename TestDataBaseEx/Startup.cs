@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TestDataBaseEx.Model;
 
 namespace TestDataBaseEx
 {
@@ -31,6 +33,7 @@ namespace TestDataBaseEx
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.Configure<Connection>(Configuration.GetSection("ConnectionStrings"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
