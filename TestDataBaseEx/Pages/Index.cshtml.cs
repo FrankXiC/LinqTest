@@ -10,7 +10,7 @@ using TestDataBaseEx.Model;
 
 namespace TestDataBaseEx.Pages {
     public class IndexModel : PageModel {
-        public Connection _conn;
+        private readonly Connection _conn;
 
         public IndexModel(IOptions<Connection> options) {
             _conn = options.Value;
@@ -19,7 +19,7 @@ namespace TestDataBaseEx.Pages {
             TESTDbContext testDbContext = new TESTDbContext(_conn.Default);
 
 
-            #region 问题1
+            #region 问题1 查询今日客户联系情况
             //var customerlist = (from cust in testDbContext.Customers select cust).ToList();
 
             //var returnvisitlist = (from retur in testDbContext.ReturnVisitTasks select retur).ToList();
@@ -33,7 +33,7 @@ namespace TestDataBaseEx.Pages {
             #endregion
 
 
-            #region 问题2
+            #region 问题2 查询待回访的客户
             //var customerlist = (from cust in testDbContext.Customers select cust).ToList();
 
             //var returnvisitlist = (from retur in testDbContext.ReturnVisitTasks where retur.ActualTime == null select retur).ToList();
@@ -50,7 +50,7 @@ namespace TestDataBaseEx.Pages {
             #endregion
 
 
-            #region 问题3
+            #region 问题3 查询每个销售顾问的回访任务情况
             //var returnvisitlist = (from retur in testDbContext.ReturnVisitTasks select retur).ToList();
 
             //var taskEndList = (from tel in returnvisitlist
@@ -89,39 +89,39 @@ namespace TestDataBaseEx.Pages {
             #endregion
 
 
-            #region 问题4
-            var customerList = (from ctlist in testDbContext.Customers select ctlist).ToList();
+            #region 问题4 查询客户最近回访、最近来访情况
+            //var customerList = (from ctlist in testDbContext.Customers select ctlist).ToList();
 
-            var returnVistList = (from relist in testDbContext.ReturnVisitTasks
-                                  group relist by relist.CustomerId into g
-                                  let maxActual = g.Max(p => p.ActualTime)
-                                  select new {
-                                      g.Key,
-                                      MaxActualTime = maxActual,
-                                      intent = g.FirstOrDefault(p => p.ActualTime == maxActual).Intent
-                                  }).ToList();
+            //var returnVistList = (from relist in testDbContext.ReturnVisitTasks
+            //                      group relist by relist.CustomerId into g
+            //                      let maxActual = g.Max(p => p.ActualTime)
+            //                      select new {
+            //                          g.Key,
+            //                          MaxActualTime = maxActual,
+            //                          intent = g.FirstOrDefault(p => p.ActualTime == maxActual).Intent
+            //                      }).ToList();
 
-            var visitList = (from v in testDbContext.VisitRecords
-                             group v by v.CustomerId into g
-                             let maxVisit = g.Max(p => p.VisitTime)
-                             select new {
-                                 g.Key,
-                                 maxVisitTime = maxVisit,
-                                 intent = g.FirstOrDefault(p => p.VisitTime == maxVisit).Intent
-                             }).ToList();
+            //var visitList = (from v in testDbContext.VisitRecords
+            //                 group v by v.CustomerId into g
+            //                 let maxVisit = g.Max(p => p.VisitTime)
+            //                 select new {
+            //                     g.Key,
+            //                     maxVisitTime = maxVisit,
+            //                     intent = g.FirstOrDefault(p => p.VisitTime == maxVisit).Intent
+            //                 }).ToList();
 
-            var ctReturnList = (from c in customerList
-                                join r in returnVistList on c.Id equals r.Key into cr
-                                from r in cr.DefaultIfEmpty()
-                                join vl in visitList on c.Id equals vl.Key into cvl
-                                from vl in cvl.DefaultIfEmpty()
-                                select new {
-                                    CustomerName = c.CustomerName,
-                                    Returnintent = cr.Select(t => t.intent).FirstOrDefault(),
-                                    MaxActualTime = cr.Select(t => t.MaxActualTime).FirstOrDefault(),
-                                    VisitIntent = cvl.Select(t => t.intent).FirstOrDefault(),
-                                    MaxVisitTime = cvl.Select(t => t.maxVisitTime).FirstOrDefault()
-                                }).ToList();
+            //var ctReturnList = (from c in customerList
+            //                    join r in returnVistList on c.Id equals r.Key into cr
+            //                    from r in cr.DefaultIfEmpty()
+            //                    join vl in visitList on c.Id equals vl.Key into cvl
+            //                    from vl in cvl.DefaultIfEmpty()
+            //                    select new {
+            //                        CustomerName = c.CustomerName,
+            //                        Returnintent = cr.Select(t => t.intent).FirstOrDefault(),
+            //                        MaxActualTime = cr.Select(t => t.MaxActualTime).FirstOrDefault(),
+            //                        VisitIntent = cvl.Select(t => t.intent).FirstOrDefault(),
+            //                        MaxVisitTime = cvl.Select(t => t.maxVisitTime).FirstOrDefault()
+            //                    }).ToList();
 
             #endregion
         }
