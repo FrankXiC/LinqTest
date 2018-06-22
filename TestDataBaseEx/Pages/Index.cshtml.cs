@@ -21,31 +21,38 @@ namespace TestDataBaseEx.Pages {
 
             #region 问题1
             //var customerlist = (from cust in testDbContext.Customers select cust).ToList();
+
             //var returnvisitlist = (from retur in testDbContext.ReturnVisitTasks select retur).ToList();
+
             //var returnlist = (from c in customerlist
             //                  join r in returnvisitlist on c.Id equals r.CustomerId
             //                  where (c.CreateTime.ToString("yyyy-MM-dd") == DateTime.Now.ToString("yyyy-MM-dd"))
             //                       ||
             //                       (Convert.ToDateTime(r.ActualTime).ToString("yyyy-MM-dd") == DateTime.Now.ToString("yyyy-MM-dd"))
-            //                  select new {  Customer = c }).Distinct().ToList();
+            //                  select new { Customer = c }).Distinct().ToList();
             #endregion
 
 
             #region 问题2
             //var customerlist = (from cust in testDbContext.Customers select cust).ToList();
+
             //var returnvisitlist = (from retur in testDbContext.ReturnVisitTasks where retur.ActualTime == null select retur).ToList();
+
             //var visitList = (from visit in testDbContext.VisitRecords where visit.VisitTime != null select visit).ToList();
+
             //var returnlist = (from v in visitList
-            //    join r in returnvisitlist on v.CustomerId equals r.CustomerId
-            //    select new { r.CustomerId }).Distinct().ToList();
+            //                  join r in returnvisitlist on v.CustomerId equals r.CustomerId
+            //                  select new { r.CustomerId }).Distinct().ToList();
+
             //var returnCustomer = (from c in customerlist
-            //    join custId in returnlist on c.Id equals custId.CustomerId
-            //    select new { Customer = c }).Distinct();
+            //                      join custId in returnlist on c.Id equals custId.CustomerId
+            //                      select new { Customer = c }).Distinct();
             #endregion
 
 
             #region 问题3
             //var returnvisitlist = (from retur in testDbContext.ReturnVisitTasks select retur).ToList();
+
             //var taskEndList = (from tel in returnvisitlist
             //                   where tel.ActualTime != null
             //                   group tel by tel.ConsultantId into g
@@ -64,6 +71,7 @@ namespace TestDataBaseEx.Pages {
             //                       select new { g.Key, tasktype = "未处理的任务", count = g.Count() });
 
             //var salesList = (from consultant in testDbContext.Consultants select consultant).ToList();
+
             //var salesTaskList = (from c in salesList
             //                     join te in taskEndList on c.Id equals te.Key
             //                     select new { c.ConsultantName, te.Key, te.tasktype, te.count }).ToList();
@@ -82,7 +90,6 @@ namespace TestDataBaseEx.Pages {
 
 
             #region 问题4
-
             var customerList = (from ctlist in testDbContext.Customers select ctlist).ToList();
 
             var returnVistList = (from relist in testDbContext.ReturnVisitTasks
@@ -120,4 +127,3 @@ namespace TestDataBaseEx.Pages {
         }
     }
 }
-
